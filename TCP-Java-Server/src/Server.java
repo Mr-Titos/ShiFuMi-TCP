@@ -126,42 +126,22 @@ class ClientHandler extends Thread
                 else if(received.equals("pierre")) {
                     System.out.println("Pierre");
                     if(plist.size() == 1) {
-                        switch (whoWinBot(received)) {
-                            case "l":
-                                dos.writeUTF("Vous avez perdu contre le bot !");
-                                break;
-                            case "w":
-                                dos.writeUTF("Vous avez gagné contre le bot !");
-                                break;
-                            case "e":
-                                dos.writeUTF("C'est une égalité !");
-                                break;
-                            default:
-                                dos.writeUTF("Une erreur a eu lieu !");
-                        }
-
+                        whoWinBot(received, dos);
                     }
-                    /*for(Player ptemp: plist) {
-
-                    }*/
                 }
                 else if(received.equals("feuille")) {
+                    System.out.println("Feuille");
+                    if(plist.size() == 1) {
+                        whoWinBot(received, dos);
+                    }
 
                 }
                 else if(received.equals("ciseaux")) {
-                    /*if (gstatus) {
-                        for (Player ptemp : plist) {
-                            if (ptemp.getSo() == s && !ptemp.getEtat()) {
-                                ptemp.setProposition("ciseaux");
-                                statusGame += 1;
-                                ptemp.setEtat(true);
-                                dos.writeUTF("Ciseaux a été envoyé !");
-                            }
-                        }
+                    System.out.println("Ciseaux");
+                    if(plist.size() == 1) {
+                        whoWinBot(received, dos);
                     }
-                    if (statusGame == 2) {
-                        roundLogic();
-                    }*/
+
                     } else {
                         dos.writeUTF("Invalid input");
                     }
@@ -181,47 +161,59 @@ class ClientHandler extends Thread
         }
     }
 
-    private String whoWinBot(String s) {
+    private void whoWinBot(String s, DataOutputStream dos) {
         int c = new Random().nextInt(3);
         // 0 = Pierre / 1 = Feuille / 2 = Ciseaux
-
+        String e = "C'est une égalité !";
+        String l = "Vous avez perdu contre le bot !";
+        String w = "Vous avez gagné contre le bot !";
+        System.out.println(c);
+        try {
         switch (s) {
-            case "pierre" :
-                switch(c) {
+            case "pierre":
+                switch (c) {
                     case 0:
-                        return "e";
+                        dos.writeUTF(e);
+                        break;
                     case 1:
-                        return "l";
+                        dos.writeUTF(l);
+                        break;
                     case 2:
-                        return "w";
+                        dos.writeUTF(w);
+                        break;
 
                 }
                 break;
-            case "feuille" :
-                switch(c) {
+            case "feuille":
+                switch (c) {
                     case 0:
-                        return "w";
+                        dos.writeUTF(w);
+                        break;
                     case 1:
-                        return "e";
+                        dos.writeUTF(e);
+                        break;
                     case 2:
-                        return "l";
+                        dos.writeUTF(l);
+                        break;
 
                 }
                 break;
-            case "ciseaux" :
-                switch(c) {
+            case "ciseaux":
+                switch (c) {
                     case 0:
-                        return "l";
+                        dos.writeUTF(l);
+                        break;
                     case 1:
-                        return "w";
+                        dos.writeUTF(w);
+                        break;
                     case 2:
-                        return "e";
+                        dos.writeUTF(e);
+                        break;
 
                 }
                 break;
-
         }
-        return "error";
+    } catch (IOException ie) { System.out.println(ie.getMessage()); }
     }
     private Player whoWin(Player pl1, Player pl2){
         String prop1 = pl1.getProposition();
