@@ -4,9 +4,12 @@
     <list default="true" id="7a9df768-36cd-415a-b512-0b1622799ceb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../TCP-Java-Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCP-Java-Client/out/production/TCP-Java-Client/Logic.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Client/out/production/TCP-Java-Client/Logic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TCP-Java-Client/out/production/TCP-Java-Client/ShutDownTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Client/out/production/TCP-Java-Client/ShutDownTask.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCP-Java-Client/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Client/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TCP-Java-Server/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TCP-Java-Server/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TCP-Java-Server/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TCP-Java-Server/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

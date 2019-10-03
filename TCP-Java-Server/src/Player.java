@@ -8,15 +8,13 @@ public class Player {
 
     public Player(Socket s) {
         so = s;
-    }
-    public Player(String p) {
-        proposition = p;
+        this.proposition = "default";
     }
     public void setSo(Socket soc) {
         so = soc;
     }
     public void setProposition(String p) {
-        proposition = p;
+        this.proposition = p;
     }
     public void setScore(int sc) {
         score = sc;

@@ -40,6 +40,7 @@ class Logic extends Thread {
 
         ShutDownTask shutDownTask = new ShutDownTask(dos);
         Runtime.getRuntime().addShutdownHook(shutDownTask);
+
         // Logique application client
         while (true)
         {
@@ -54,7 +55,8 @@ class Logic extends Thread {
                 System.out.println("Connection closed");
                 break;
             }
-
+            //Probleme sur la récéption du résultat pour celui qui a envoyé en premier
+            // Il faut que celui-ci renvoie une donnée quelquonque pour récuperer le résultat
             String received = dis.readUTF();
             System.out.println(received);
         }

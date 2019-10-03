@@ -64,7 +64,6 @@ class ClientHandler extends Thread
     String toreturn;
     Server server = new Server();
     private final static ArrayList<Player> plist = new ArrayList<>();
-    int statusGame = 0;
 
     public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos, Player p)
     {
@@ -98,8 +97,9 @@ class ClientHandler extends Thread
             try {
                 received = dis.readUTF().toLowerCase();
                 System.out.println("Client " + s + received);
-                    dos.writeUTF("You're in Shi-Fu-Mi game !\n" +
+                dos.writeUTF("You're in Shi-Fu-Mi game !\n" +
                             "Type Exit to terminate connection.");
+
 
 
                 if(received.equals("exit"))
@@ -133,12 +133,44 @@ class ClientHandler extends Thread
                     System.out.println("Pierre");
                     if(plist.size() == 1) {
                         whoWinBot(received, dos);
+                    } else {
+                        for(Player ptemp1: plist) {
+                            if(ptemp1.getSo() == s)
+                                ptemp1.setProposition(received);
+                        }
+                        int ctemp = 0;
+                        for(Player ptemp2: plist) {
+                            System.out.println("Player" + ptemp2.getSo() + " - " + ptemp2.getProposition());
+                            if(!ptemp2.getProposition().equals("default")) {
+                                ctemp++;
+                            }
+                        }
+                        if(ctemp == 2) {
+                            whoWin(plist.get(0), plist.get(1));
+                        } else
+                            dos.writeUTF("En attente de l'autre joueur");
                     }
                 }
                 else if(received.equals("feuille")) {
                     System.out.println("Feuille");
                     if(plist.size() == 1) {
                         whoWinBot(received, dos);
+                    } else {
+                        for(Player ptemp1: plist) {
+                            if(ptemp1.getSo() == s)
+                                ptemp1.setProposition(received);
+                        }
+                        int ctemp = 0;
+                        for(Player ptemp2: plist) {
+                            System.out.println("Player" + ptemp2.getSo() + " - " + ptemp2.getProposition());
+                            if(!ptemp2.getProposition().equals("default")) {
+                                ctemp++;
+                            }
+                        }
+                        if(ctemp == 2) {
+                            whoWin(plist.get(0), plist.get(1));
+                        } else
+                            dos.writeUTF("En attente de l'autre joueur");
                     }
 
                 }
@@ -146,6 +178,22 @@ class ClientHandler extends Thread
                     System.out.println("Ciseaux");
                     if(plist.size() == 1) {
                         whoWinBot(received, dos);
+                    } {
+                        for(Player ptemp1: plist) {
+                            if(ptemp1.getSo() == s)
+                                ptemp1.setProposition(received);
+                        }
+                        int ctemp = 0;
+                        for(Player ptemp2: plist) {
+                            System.out.println("Player" + ptemp2.getSo() + " - " + ptemp2.getProposition());
+                            if(!ptemp2.getProposition().equals("default")) {
+                                ctemp++;
+                            }
+                        }
+                        if(ctemp == 2) {
+                            whoWin(plist.get(0), plist.get(1));
+                        } else
+                            dos.writeUTF("En attente de l'autre joueur");
                     }
 
                     } else {
@@ -227,45 +275,83 @@ class ClientHandler extends Thread
             }
         } catch (IOException ie) { System.out.println(ie.getMessage()); }
     }
-    private Player whoWin(Player pl1, Player pl2){
-        String prop1 = pl1.getProposition();
-        String prop2 = pl2.getProposition();
-        Player pwin = new Player("null");
-        switch (prop1) {
-            case "pierre":
-                switch (prop2) {
-                    case "feuille":
-                        break;
-                    case "ciseaux":
-                        break;
-                }
-                break;
-            case "feuille":
-                break;
-            case "ciseaux":
-                break;
-        }
-        return pwin;
-    }
-
-    private void roundLogic() {
+    private void whoWin(Player pl1, Player pl2) {
         try {
-            Player pwin = whoWin(plist.get(0), plist.get(1));
-            if (!pwin.getProposition().equals("null")) {
-                DataOutputStream outputwin = new DataOutputStream(pwin.getSo().getOutputStream());
-                outputwin.writeUTF("Victoire !");
-                for (Player ptemp : plist) {
-                    if (ptemp != pwin) {
-                        DataOutputStream outputlose = new DataOutputStream(ptemp.getSo().getOutputStream());
-                        outputlose.writeUTF("Défaite D:");
+            String prop1 = pl1.getProposition();
+            String prop2 = pl2.getProposition();
+            DataOutputStream dos1 = new DataOutputStream(pl1.getSo().getOutputStream());
+            DataOutputStream dos2 = new DataOutputStream(pl2.getSo().getOutputStream());
+            String e = "C'est une égalité !";
+            String l = "Vous avez perdu contre votre adversaire !";
+            String w = "Vous avez gagné contre votre adversaire !";
+
+            switch (prop1) {
+                case "pierre":
+                    switch (prop2) {
+                        case "pierre":
+                            dos1.writeUTF(e + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(e + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+                        case "feuille":
+                            pl1.setScore(pl1.getScore() - 1); // Defeat
+                            pl2.setScore(pl2.getScore() + 1); // Victory
+                            dos1.writeUTF(l + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(w + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+                        case "ciseaux":
+                            pl1.setScore(pl1.getScore() + 1); // Victory
+                            pl2.setScore(pl2.getScore() - 1); // Defeat
+                            dos1.writeUTF(w + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(l + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+
                     }
-                }
-            } else {
-                for (Player ptemp : plist) {
-                    DataOutputStream outputequal = new DataOutputStream(ptemp.getSo().getOutputStream());
-                    outputequal.writeUTF("Egalité !");
-                }
+                    break;
+                case "feuille":
+                    switch (prop2) {
+                        case "pierre":
+                            pl1.setScore(pl1.getScore() + 1); // Victory
+                            pl2.setScore(pl2.getScore() - 1); // Defeat
+                            dos1.writeUTF(w + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(l + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+                        case "feuille":
+                            dos1.writeUTF(e + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(e + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+                        case "ciseaux":
+                            pl1.setScore(pl1.getScore() - 1); // Defeat
+                            pl2.setScore(pl2.getScore() + 1); // Victory
+                            dos1.writeUTF(l + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(w + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+
+                    }
+                    break;
+                case "ciseaux":
+                    switch (prop2) {
+                        case "pierre":
+                            pl1.setScore(pl1.getScore() - 1); // Defeat
+                            pl2.setScore(pl2.getScore() + 1); // Victory
+                            dos1.writeUTF(l + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(w + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+                        case "feuille":
+                            pl1.setScore(pl1.getScore() + 1); // Victory
+                            pl2.setScore(pl2.getScore() - 1); // Defeat
+                            dos1.writeUTF(w + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(l + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+                        case "ciseaux":
+                            dos1.writeUTF(e + "\nVotre score est maintenant de " + pl1.getScore() + ". Et celui de votre adversaire " + pl2.getScore());
+                            dos2.writeUTF(e + "\nVotre score est maintenant de " + pl2.getScore() + ". Et celui de votre adversaire " + pl1.getScore());
+                            break;
+
+                    }
+                    break;
             }
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException ie) { System.out.println(ie.getMessage()); }
+        pl1.setProposition("default");
+        pl2.setProposition("default");
     }
 } 
