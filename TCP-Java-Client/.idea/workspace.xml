@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="360c7050-f5d4-4af4-9baa-d90857e05c46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TCP-Java-Server/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TCP-Java-Client/META-INF/TCP-Java-Client.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TCP-Java-Client/Logic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TCP-Java-Client/Logic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCP-Java-Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Server/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCP-Java-Server/out/production/TCP-Java-Server/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Server/out/production/TCP-Java-Server/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TCP-Java-Server/out/production/TCP-Java-Server/META-INF/TCP-Java-Server.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TCP-Java-Server/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TCP-Java-Server/src/Server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

@@ -123,6 +123,12 @@ class ClientHandler extends Thread
                         toreturn = fortime.format(date);
                         dos.writeUTF(toreturn);
                 }
+                else if(received.equals("score")) {
+                    for(Player ptemp : plist) {
+                        if(ptemp.getSo() == s)
+                            dos.writeUTF("Votre score est de " + ptemp.getScore());
+                    }
+                }
                 else if(received.equals("pierre")) {
                     System.out.println("Pierre");
                     if(plist.size() == 1) {
@@ -167,53 +173,59 @@ class ClientHandler extends Thread
         String e = "C'est une égalité !";
         String l = "Vous avez perdu contre le bot !";
         String w = "Vous avez gagné contre le bot !";
-        System.out.println(c);
+        Player playerBot = plist.get(0);
         try {
-        switch (s) {
-            case "pierre":
-                switch (c) {
-                    case 0:
-                        dos.writeUTF(e);
-                        break;
-                    case 1:
-                        dos.writeUTF(l);
-                        break;
-                    case 2:
-                        dos.writeUTF(w);
-                        break;
+            switch (s) {
+                case "pierre":
+                    switch (c) {
+                        case 0:
+                            dos.writeUTF(e + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
+                        case 1:
+                            playerBot.setScore(playerBot.getScore() - 1);
+                            dos.writeUTF(l + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
+                        case 2:
+                            playerBot.setScore(playerBot.getScore() + 1);
+                            dos.writeUTF(w + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
 
-                }
-                break;
-            case "feuille":
-                switch (c) {
-                    case 0:
-                        dos.writeUTF(w);
-                        break;
-                    case 1:
-                        dos.writeUTF(e);
-                        break;
-                    case 2:
-                        dos.writeUTF(l);
-                        break;
+                    }
+                    break;
+                case "feuille":
+                    switch (c) {
+                        case 0:
+                            playerBot.setScore(playerBot.getScore() + 1);
+                            dos.writeUTF(w + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
+                        case 1:
+                            dos.writeUTF(e + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
+                        case 2:
+                            playerBot.setScore(playerBot.getScore() - 1);
+                            dos.writeUTF(l + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
 
-                }
-                break;
-            case "ciseaux":
-                switch (c) {
-                    case 0:
-                        dos.writeUTF(l);
-                        break;
-                    case 1:
-                        dos.writeUTF(w);
-                        break;
-                    case 2:
-                        dos.writeUTF(e);
-                        break;
+                    }
+                    break;
+                case "ciseaux":
+                    switch (c) {
+                        case 0:
+                            playerBot.setScore(playerBot.getScore() - 1);
+                            dos.writeUTF(l + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
+                        case 1:
+                            playerBot.setScore(playerBot.getScore() + 1);
+                            dos.writeUTF(w + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
+                        case 2:
+                            dos.writeUTF(e + " Votre score est maintenant de " + playerBot.getScore());
+                            break;
 
-                }
-                break;
-        }
-    } catch (IOException ie) { System.out.println(ie.getMessage()); }
+                    }
+                    break;
+            }
+        } catch (IOException ie) { System.out.println(ie.getMessage()); }
     }
     private Player whoWin(Player pl1, Player pl2){
         String prop1 = pl1.getProposition();

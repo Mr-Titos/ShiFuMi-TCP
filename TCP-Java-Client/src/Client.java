@@ -44,7 +44,7 @@ class Logic extends Thread {
         while (true)
         {
             System.out.println(dis.readUTF());
-            String tosend = scn.nextLine();
+            String tosend = scn.nextLine().trim();
             dos.writeUTF(tosend);
 
             if(tosend.toLowerCase().equals("exit"))
