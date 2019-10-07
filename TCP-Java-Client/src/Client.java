@@ -35,7 +35,7 @@ class Logic extends Thread {
         try
         {
             System.out.println("You're in Shi-Fu-Mi game !\n" +
-            "Type Exit to terminate connection.");
+            "Type pierre, feuille or ciseaux !");
         Scanner scn = new Scanner(System.in);
 
         ShutDownTask shutDownTask = new ShutDownTask(dos);
@@ -57,6 +57,7 @@ class Logic extends Thread {
             }
             //Probleme sur la récéption du résultat pour celui qui a envoyé en premier
             // Il faut que celui-ci renvoie une donnée quelquonque pour récuperer le résultat
+            //Il faut un 2nd Thread qui écoute
             String received = dis.readUTF();
             System.out.println(received);
         }
@@ -70,6 +71,9 @@ class Logic extends Thread {
         }
     }
 
+}
+class Reader extends Thread {
+        
 }
 
 class ShutDownTask extends Thread {
